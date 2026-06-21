@@ -73,7 +73,31 @@ Install all required libraries specified in the `requirements.txt` file:
 pip install -r requirements.txt
 ```
 
-### 4. Run the Application
+### 4. Set Up Dataset (Optional)
+*Note: Pre-trained models are already included in `models/`, so this step is only necessary if you want to extract landmarks or retrain the models.*
+
+1. Download the ASL Alphabet dataset from [Kaggle](https://www.kaggle.com/datasets/grassknoted/asl-alphabet?utm_source=chatgpt.com&select=asl_alphabet_test).
+2. Extract the downloaded zip file.
+3. Move the character folders (e.g., `A/`, `B/`, ..., `space/`, `del/`) from `asl_alphabet_train/asl_alphabet_train` into the `data/raw/` directory. Your folder structure should look like this:
+   ```
+   data/
+   └── raw/
+       ├── A/
+       │   ├── A1.jpg
+       │   └── ...
+       ├── B/
+       └── ...
+   ```
+4. Run the landmark extraction and preprocessing scripts:
+   ```bash
+   # Extract 3D landmarks using MediaPipe
+   python src/extract_landmarks.py
+
+   # Standardize features and split data
+   python src/preprocess.py
+   ```
+
+### 5. Run the Application
 Start the real-time prediction GUI:
 ```bash
 python main.py
